@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,MoviesDataConnectionControllerDelegate {
 
     @IBOutlet weak var searchResultsTableView: UITableView!
+    var movieDetail : MovieDetail?
     var searchResultsData: NSArray = []
     var resultsController: MoviesDataConnectionController = MoviesDataConnectionController()
     override func viewDidLoad() {
@@ -46,6 +47,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.movieDetail = self.searchResultsData[indexPath.row] as? MovieDetail
+        if let _ = tableView.cellForRowAtIndexPath(indexPath){
+            self.performSegueWithIdentifier("moviedetail", sender: self);
+        }
+    }
+    
     
     func searchMovies()
     {
@@ -67,6 +75,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.searchResultsTableView.reloadData()
 
     }
-
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "moviedetail" {
+            if let destination = segue.destinationViewController as? MovieDetailViewController{
+                
+                if((self.movieDetail) != nil){
+                destination.showOverview(self.movieDetail!)
+                }
+            }
+        }
+    }
+  
 }
 

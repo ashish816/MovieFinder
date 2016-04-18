@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -44,6 +46,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="xYe-rn-qG9" kind="show" identifier="moviedetail" id="8rL-Ig-Vx0"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -61,6 +66,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="182" y="202"/>
+        </scene>
+        <!--Movie Detail View Controller-->
+        <scene sceneID="1jF-bh-Zpu">
+            <objects>
+                <viewController id="xYe-rn-qG9" customClass="MovieDetailViewController" customModule="MovieFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F2P-iC-40W"/>
+                        <viewControllerLayoutGuide type="bottom" id="EWk-Ve-aR9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GiY-Da-N6h">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qxc-oZ-wpW">
+                                <rect key="frame" x="346" y="211" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e59-rI-dCI">
+                                <rect key="frame" x="20" y="50" width="560" height="268"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="e59-rI-dCI" secondAttribute="height" multiplier="140:67" id="Iqb-V4-5bM"/>
+                                </constraints>
+                            </webView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="39l-hE-Ewl">
+                                <rect key="frame" x="20" y="338" width="554" height="242"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pE2-Kr-5HB">
+                                <rect key="frame" x="532" y="20" width="48" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="disableModalViewController:" destination="xYe-rn-qG9" eventType="touchUpInside" id="8fI-x3-CwW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pE2-Kr-5HB" firstAttribute="trailing" secondItem="e59-rI-dCI" secondAttribute="trailing" id="2BV-nB-ny2"/>
+                            <constraint firstItem="pE2-Kr-5HB" firstAttribute="top" secondItem="F2P-iC-40W" secondAttribute="bottom" id="9ck-BP-BCT"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="e59-rI-dCI" secondAttribute="leading" id="Ff8-Xw-Mu9"/>
+                            <constraint firstItem="39l-hE-Ewl" firstAttribute="trailing" secondItem="e59-rI-dCI" secondAttribute="trailing" constant="-6" id="Rl2-J8-Ll6"/>
+                            <constraint firstItem="39l-hE-Ewl" firstAttribute="top" secondItem="e59-rI-dCI" secondAttribute="bottom" constant="20" id="V4B-uI-DfH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="e59-rI-dCI" secondAttribute="trailing" id="Xen-G7-REg"/>
+                            <constraint firstItem="e59-rI-dCI" firstAttribute="top" secondItem="F2P-iC-40W" secondAttribute="bottom" constant="30" id="cZp-Zj-fZO"/>
+                            <constraint firstItem="EWk-Ve-aR9" firstAttribute="top" secondItem="39l-hE-Ewl" secondAttribute="bottom" constant="20" id="fXG-aI-flP"/>
+                            <constraint firstItem="39l-hE-Ewl" firstAttribute="leading" secondItem="e59-rI-dCI" secondAttribute="leading" id="tKJ-kU-fnF"/>
+                            <constraint firstItem="e59-rI-dCI" firstAttribute="top" secondItem="pE2-Kr-5HB" secondAttribute="bottom" id="yzy-je-PHC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="movieOverview" destination="39l-hE-Ewl" id="80y-G6-s70"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bJo-YE-R7v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="903" y="-99"/>
         </scene>
     </scenes>
 </document>

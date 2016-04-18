@@ -46,7 +46,10 @@ class MoviesDataConnectionController: NSObject {
                 self.delegate?.requestFailedWithError(error.debugDescription)
                 return
             }
-            self.generateResults(data);
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.generateResults(data);
+            })
         }.resume()
     }
     
@@ -67,6 +70,8 @@ class MoviesDataConnectionController: NSObject {
                 movieDetail.movieTitle = movieInfo!["title"] as? String;
                 movieDetail.relaseDate = movieInfo!["release_date"] as? String;
                 movieDetail.posterPath = movieInfo!["poster_path"] as? String;
+                movieDetail.movieOverView = movieInfo!["overview"] as? String;
+
                 searchedMovies.addObject(movieDetail);
             }
             self.delegate?.requestSucceedWithResults(searchedMovies.copy() as! NSArray)

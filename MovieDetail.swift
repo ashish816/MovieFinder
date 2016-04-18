@@ -13,6 +13,7 @@ class MovieDetail: NSObject {
     var movieTitle: String?
     var relaseDate: String?
     var posterPath : String?
+    var movieOverView : String?
     
     override init() {
         super.init()
