@@ -54,7 +54,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    
     func searchMovies()
     {
       
@@ -80,7 +79,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "moviedetail" {
             if let destination = segue.destinationViewController as? MovieDetailViewController{
                 
-                if((self.movieDetail) != nil){
+                if((self.movieDetail) != nil && destination.view != nil){
                 destination.showOverview(self.movieDetail!)
                 }
             }

@@ -10,10 +10,10 @@ import UIKit
 
 class MovieDetailViewController: UIViewController {
     
-    @IBOutlet weak var movieOverview: UITextView!
+    @IBOutlet var movieOverview: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.movieOverview.editable = false;
         // Do any additional setup after loading the view.
     }
 
@@ -22,8 +22,14 @@ class MovieDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     func showOverview(movieData : MovieDetail) {
-        self.movieOverview.text! = movieData.movieOverView!;
+        NSLog(movieData.movieOverView!);
+        NSLog("\(movieOverview)");
+        NSLog(self.movieOverview.text!);
+
+        self.movieOverview.text = movieData.movieOverView;
     }
     
     @IBAction func disableModalViewController(sendor: AnyObject) {
