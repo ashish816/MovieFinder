@@ -8,16 +8,19 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,MoviesDataConnectionControllerDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,MoviesDataConnectionControllerDelegate,UISearchBarDelegate {
 
     @IBOutlet weak var searchResultsTableView: UITableView!
     var movieDetail : MovieDetail?
     var searchResultsData: NSArray = []
     var resultsController: MoviesDataConnectionController = MoviesDataConnectionController()
+    
+    
+    var searchActive : Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchMovies()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     
@@ -35,16 +38,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cellData: MovieDetail = self.searchResultsData[indexPath.row] as! MovieDetail
         cell.textLabel!.text = cellData.movieTitle!
         
-        
         if let posterPath = cellData.posterPath {
-        let imgData: NSData = resultsController.retreiveImageData(posterPath)
-        cell.imageView!.image = UIImage(data: imgData)
+        self.retreiveImageData(posterPath,indexPath: indexPath)
         }
         
         let releaseDate: String = cellData.relaseDate!
         cell.detailTextLabel!.text = releaseDate
         
         return cell
+    }
+    
+    func retreiveImageData(posterPath : String?, indexPath: NSIndexPath) {
+        guard let posterPath = posterPath else {
+            return
+        }
+        let baseUrl: String = "http://image.tmdb.org/t/p/w300"
+        let urlString: String = "\(baseUrl)" + "\(posterPath)"
+        let imgURL: NSURL = NSURL(string: urlString)!
+        
+        NSURLSession.sharedSession().dataTaskWithURL(imgURL) { (data, response, erro) -> Void in
+            guard let data = data else {
+                return
+            }
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                if let cell : UITableViewCell = self.searchResultsTableView.cellForRowAtIndexPath(indexPath) {
+                cell.imageView!.image = UIImage(data: data)
+                cell.setNeedsLayout()
+                }
+            })
+            }.resume()
+        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -78,13 +101,40 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "moviedetail" {
             if let destination = segue.destinationViewController as? MovieDetailViewController{
-                
-                if((self.movieDetail) != nil && destination.view != nil){
-                destination.showOverview(self.movieDetail!)
-                }
+                destination.movieDetail = self.movieDetail;
             }
         }
     }
-  
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+//    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+//        
+//        filtered = data.filter({ (text) -> Bool in
+//            let tmp: NSString = text
+//            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+//            return range.location != NSNotFound
+//        })
+//        if(filtered.count == 0){
+//            searchActive = false;
+//        } else {
+//            searchActive = true;
+//        }
+//        self.tableView.reloadData()
+//    }  
 }
 

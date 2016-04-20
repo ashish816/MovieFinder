@@ -19,24 +19,18 @@ class MoviesDataConnectionController: NSObject {
     override init() {
         
     }
+
     
-    func retreiveImageData(posterPath : String?)->NSData {
-        guard let posterPath = posterPath,
-            let baseUrl: String = "http://image.tmdb.org/t/p/w300",
-            let urlString: String = "\(baseUrl)" + "\(posterPath)",
-            let imgURL: NSURL = NSURL(string: urlString)
-            else {
-                let defaultImageUrl: NSURL = NSURL(string: "https://assets.tmdb.org/images/logosvar_8_0_tmdb-logo-2_Bree.png")!
-                    return  NSData(contentsOfURL: defaultImageUrl)!
-            }
-           return  NSData(contentsOfURL: imgURL)!
+    func defaultImageData () -> NSData{
+        let defaultImageUrl: NSURL = NSURL(string: "https://assets.tmdb.org/images/logosvar_8_0_tmdb-logo-2_Bree.png")!
+        return NSData(contentsOfURL: defaultImageUrl)!
     }
     
     func retreiveSearchResults(var queryKeyword : String)
     {
         let APIkey: String = "34747ce9a4b8fd531c6818fe2b2b3155" //Replace with your Api Key"
         let APIBaseUrl: String = "https://api.themoviedb.org/3/search/movie?api_key="
-        queryKeyword = "titanic";
+        queryKeyword = "a";
         let urlString:String = "\(APIBaseUrl)" + "\(APIkey)"+"&"+"query=" + "\(queryKeyword)";
 
         let url = NSURL(string: urlString)
@@ -71,6 +65,8 @@ class MoviesDataConnectionController: NSObject {
                 movieDetail.relaseDate = movieInfo!["release_date"] as? String;
                 movieDetail.posterPath = movieInfo!["poster_path"] as? String;
                 movieDetail.movieOverView = movieInfo!["overview"] as? String;
+                movieDetail.youTubeVideoId = movieInfo!["video"] as? String;
+                movieDetail.movieId = movieInfo!["id"] as? Int;
 
                 searchedMovies.addObject(movieDetail);
             }

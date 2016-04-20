@@ -14,6 +14,8 @@ class MovieDetail: NSObject {
     var relaseDate: String?
     var posterPath : String?
     var movieOverView : String?
+    var youTubeVideoId: String?
+    var movieId: Int?
     
     override init() {
         super.init()

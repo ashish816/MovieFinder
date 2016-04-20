@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t90-Ud-rOT">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t90-Ud-rOT">
+                                <rect key="frame" x="0.0" y="65" width="600" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieResultCell" textLabel="hNM-FZ-n3h" detailTextLabel="RoN-1k-i8K" style="IBUITableViewCellStyleSubtitle" id="Iwt-gh-Qd0">
@@ -38,7 +38,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RoN-1k-i8K">
-                                                    <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
+                                                    <rect key="frame" x="15" y="25" width="40.5" height="13.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -46,6 +46,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="xYe-rn-qG9" kind="show" identifier="moviedetail" id="8rL-Ig-Vx0"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -53,17 +56,39 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="OZs-Js-MzF"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="V7X-pG-Cgs">
+                                <rect key="frame" x="0.0" y="21" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="BF5-WZ-XIo"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="t90-Ud-rOT" secondAttribute="trailing" constant="-20" id="079-1l-Ws3"/>
+                            <constraint firstItem="t90-Ud-rOT" firstAttribute="top" secondItem="V7X-pG-Cgs" secondAttribute="bottom" id="LPP-2v-ojO"/>
+                            <constraint firstItem="t90-Ud-rOT" firstAttribute="top" secondItem="V7X-pG-Cgs" secondAttribute="bottom" id="Sbk-LF-8Zh"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="t90-Ud-rOT" secondAttribute="bottom" constant="-45" id="U3s-sE-bIC"/>
+                            <constraint firstItem="V7X-pG-Cgs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="UPH-JE-oYd"/>
+                            <constraint firstItem="V7X-pG-Cgs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="1" id="V59-cP-4Kn"/>
+                            <constraint firstItem="t90-Ud-rOT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="VtP-by-vnw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="V7X-pG-Cgs" secondAttribute="trailing" constant="-20" id="tOu-Wc-k45"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Sbk-LF-8Zh"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="sVP-Do-Si5"/>
                     <connections>
                         <outlet property="searchResultsTableView" destination="t90-Ud-rOT" id="moQ-sD-y4e"/>
-                        <segue destination="xYe-rn-qG9" kind="presentation" identifier="moviedetail" id="BqS-GL-sPe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="182" y="202"/>
+            <point key="canvasLocation" x="1056" y="142"/>
         </scene>
         <!--Movie Detail View Controller-->
         <scene sceneID="1jF-bh-Zpu">
@@ -123,11 +148,12 @@
                     </view>
                     <connections>
                         <outlet property="movieOverview" destination="39l-hE-Ewl" id="80y-G6-s70"/>
+                        <outlet property="youTubeVideo" destination="e59-rI-dCI" id="mtT-Zl-0BU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bJo-YE-R7v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="903" y="-99"/>
+            <point key="canvasLocation" x="1715" y="-99"/>
         </scene>
     </scenes>
 </document>
