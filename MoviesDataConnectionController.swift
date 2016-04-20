@@ -19,20 +19,15 @@ class MoviesDataConnectionController: NSObject {
     override init() {
         
     }
-
     
-    func defaultImageData () -> NSData{
-        let defaultImageUrl: NSURL = NSURL(string: "https://assets.tmdb.org/images/logosvar_8_0_tmdb-logo-2_Bree.png")!
-        return NSData(contentsOfURL: defaultImageUrl)!
-    }
-    
-    func retreiveSearchResults(var queryKeyword : String)
+    func retreiveSearchResults(let queryKeyword : String)
     {
-        let APIkey: String = "34747ce9a4b8fd531c6818fe2b2b3155" //Replace with your Api Key"
+        let APIkey: String = "34747ce9a4b8fd531c6818fe2b2b3155"
         let APIBaseUrl: String = "https://api.themoviedb.org/3/search/movie?api_key="
-        queryKeyword = "a";
-        let urlString:String = "\(APIBaseUrl)" + "\(APIkey)"+"&"+"query=" + "\(queryKeyword)";
-
+        let escapedString = queryKeyword.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        
+        let urlString:String = "\(APIBaseUrl)" + "\(APIkey)"+"&"+"query=" + "\(escapedString)";
+        
         let url = NSURL(string: urlString)
         let request = NSMutableURLRequest(URL: url!);
         NSURLSession.sharedSession().dataTaskWithRequest(request) { (data , response, error) -> Void in
@@ -42,12 +37,12 @@ class MoviesDataConnectionController: NSObject {
             }
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.generateResults(data);
+                self.parseResults(data);
             })
-        }.resume()
+            }.resume()
     }
     
-    func generateResults(requestData : NSData) {
+    func parseResults(requestData : NSData) {
         do {
             let jsonResult = try NSJSONSerialization.JSONObjectWithData(requestData, options: .AllowFragments)
             guard let jsonDictionary: NSDictionary = jsonResult as? NSDictionary else
@@ -55,8 +50,9 @@ class MoviesDataConnectionController: NSObject {
                 self.delegate?.requestFailedWithError("ERROR: conversion from JSON failed")
                 return
             }
-            let results: NSArray = jsonDictionary["results"] as! NSArray
-            
+            guard let results: NSArray = jsonDictionary["results"] as? NSArray else {
+                return
+            }
             let searchedMovies : NSMutableArray = NSMutableArray();
             for  Obj in results {
                 let movieDetail = MovieDetail();

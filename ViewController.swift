@@ -9,24 +9,40 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,MoviesDataConnectionControllerDelegate,UISearchBarDelegate {
-
+    
+    @IBOutlet weak var movieSearchBar: UISearchBar!
     @IBOutlet weak var searchResultsTableView: UITableView!
     var movieDetail : MovieDetail?
     var searchResultsData: NSArray = []
     var resultsController: MoviesDataConnectionController = MoviesDataConnectionController()
     
-    
-    var searchActive : Bool = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchMovies()
     }
 
     
-    func tableView(tableView: UITableView,
-        numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView,numberOfRowsInSection section: Int) -> Int {
               return searchResultsData.count;
+    }
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        var rotation : CATransform3D = CATransform3DMakeRotation(CGFloat(90.0*M_PI)/180 , 0.0, 0.7, 0.4)
+        rotation.m34 = (1.0/600);
+        cell.layer.shadowColor = UIColor.blackColor().CGColor;
+        cell.layer.shadowOffset = CGSizeMake(10, 10);
+        cell.alpha = 0;
+        
+        cell.layer.transform = rotation;
+        cell.layer.anchorPoint = CGPointMake(0, 0.5);
+        
+        UIView.beginAnimations("rotation", context: nil);
+        UIView.setAnimationDuration(0.8);
+        cell.layer.transform = CATransform3DIdentity;
+        cell.alpha = 1;
+        cell.layer.shadowOffset = CGSizeMake(0, 0);
+        UIView.commitAnimations()
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -39,7 +55,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.textLabel!.text = cellData.movieTitle!
         
         if let posterPath = cellData.posterPath {
-        self.retreiveImageData(posterPath,indexPath: indexPath)
+            self.retreiveImageData(posterPath,indexPath: indexPath)
+        } else {
+            
+            let bundlePath = NSBundle.mainBundle().pathForResource("download", ofType: "png")
+            cell.imageView!.image = UIImage(contentsOfFile: bundlePath!)
+            cell.setNeedsLayout()
         }
         
         let releaseDate: String = cellData.relaseDate!
@@ -77,11 +98,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func searchMovies()
+    func searchMovies(serachedString : String)
     {
-      
+        
         self.resultsController.delegate = self
-        resultsController.retreiveSearchResults("")
+        resultsController.retreiveSearchResults(serachedString)
     }
     
     func requestFailedWithError(error: String) {
@@ -106,35 +127,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        searchActive = true;
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            let mutableSearchResults : NSMutableArray = self.searchResultsData.mutableCopy() as! NSMutableArray;
+            mutableSearchResults.removeAllObjects()
+            let searchedResults : NSArray = mutableSearchResults.copy() as! NSArray
+            self.searchResultsData = searchedResults
+            self.searchResultsTableView.reloadData()
+        }
+        self.searchMovies(searchText);
     }
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        searchActive = false;
-    }
-    
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        searchActive = false;
-    }
-    
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        searchActive = false;
-    }
-    
-//    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-//        
-//        filtered = data.filter({ (text) -> Bool in
-//            let tmp: NSString = text
-//            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
-//            return range.location != NSNotFound
-//        })
-//        if(filtered.count == 0){
-//            searchActive = false;
-//        } else {
-//            searchActive = true;
-//        }
-//        self.tableView.reloadData()
-//    }  
+
 }
 

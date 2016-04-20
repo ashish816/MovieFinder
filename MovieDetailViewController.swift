@@ -22,9 +22,7 @@ class MovieDetailViewController: UIViewController {
     
     func retreiveVideoId() {
         
-        let APIkey: String = "34747ce9a4b8fd531c6818fe2b2b3155" //Replace with your Api Key"
-        NSLog("\(self.movieDetail)");
-        NSLog("\(self.movieDetail.movieId)");
+        let APIkey: String = "34747ce9a4b8fd531c6818fe2b2b3155"
         let APIBaseUrl: String = "https://api.themoviedb.org/3/movie/"+"\(self.movieDetail.movieId!)"+"/videos?api_key="
         let urlString:String = "\(APIBaseUrl)" + "\(APIkey)";
         
@@ -51,12 +49,17 @@ class MovieDetailViewController: UIViewController {
                 NSLog("Conversion from JSON failed");
                 return
             }
-            let results: NSArray = jsonDictionary["results"] as! NSArray
-            if results.count > 0 {
-            if let videoInfo = results[0] as? NSDictionary {
-                let youTubeVideoId = videoInfo["id"] as! String;
-                self.playVideo(youTubeVideoId);
-            }
+            if let results: NSArray = jsonDictionary["results"] as? NSArray {
+                if results.count > 0 {
+                    if let videoInfo = results[0] as? NSDictionary {
+                        let youTubeVideoId = videoInfo["key"] as! String;
+                        self.playVideo(youTubeVideoId);
+                    }
+                }
+                else {
+                    let noPreviewAvailable : String = "No Preview available for the movie";
+                    self.youTubeVideo.loadHTMLString(noPreviewAvailable.stringByReplacingOccurrencesOfString("\n", withString: "<br/>"), baseURL: nil);
+                }
             }
         }
         catch {
@@ -67,7 +70,6 @@ class MovieDetailViewController: UIViewController {
     func playVideo(videoId : String){
         youTubeVideo.allowsInlineMediaPlayback = true
         let youTubelink: String = "http://www.youtube.com/embed/\(videoId)"
-//        let youTubelink: String = "http://www.youtube.com/embed/GLPJSmUHZvU"
 
         let width = self.youTubeVideo.bounds.width;
         let height = self.youTubeVideo.bounds.height;

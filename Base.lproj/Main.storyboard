@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KCg-EN-YOx">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -7,6 +7,84 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Entry View Controller-->
+        <scene sceneID="9cK-lA-8Nq">
+            <objects>
+                <viewController id="KCg-EN-YOx" customClass="EntryViewController" customModule="MovieFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qr0-S0-2HZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="xMB-yr-D0h"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iq0-nd-yOY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jK5-sc-i8h">
+                                <rect key="frame" x="20" y="546" width="560" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="YNn-at-l1w"/>
+                                </constraints>
+                                <state key="normal" title="Enter into Movie World" backgroundImage="btn_img.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="qbo-dI-1WS"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoginImage" translatesAutoresizingMaskIntoConstraints="NO" id="qnw-1E-0nB">
+                                <rect key="frame" x="20" y="20" width="560" height="512"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jK5-sc-i8h" firstAttribute="top" secondItem="qnw-1E-0nB" secondAttribute="bottom" constant="14" id="2YS-in-I8G"/>
+                            <constraint firstItem="xMB-yr-D0h" firstAttribute="top" secondItem="qnw-1E-0nB" secondAttribute="bottom" id="3XF-Ua-GaW"/>
+                            <constraint firstItem="xMB-yr-D0h" firstAttribute="top" secondItem="jK5-sc-i8h" secondAttribute="bottom" constant="20" id="52i-hj-aQc"/>
+                            <constraint firstItem="jK5-sc-i8h" firstAttribute="top" secondItem="qnw-1E-0nB" secondAttribute="bottom" constant="14" id="6bN-g0-PLY"/>
+                            <constraint firstItem="qnw-1E-0nB" firstAttribute="leading" secondItem="iq0-nd-yOY" secondAttribute="leadingMargin" id="Die-UX-w0x"/>
+                            <constraint firstItem="qnw-1E-0nB" firstAttribute="leading" secondItem="iq0-nd-yOY" secondAttribute="leadingMargin" constant="-20" id="GKx-O5-OqM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qnw-1E-0nB" secondAttribute="trailing" id="Oxi-jt-rdm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qnw-1E-0nB" secondAttribute="trailing" constant="-20" id="XdC-xc-zPO"/>
+                            <constraint firstItem="qnw-1E-0nB" firstAttribute="top" secondItem="qr0-S0-2HZ" secondAttribute="bottom" constant="-20" id="XfV-uO-fVe"/>
+                            <constraint firstItem="xMB-yr-D0h" firstAttribute="top" secondItem="qnw-1E-0nB" secondAttribute="bottom" constant="68" id="eEl-lG-yKl"/>
+                            <constraint firstItem="qnw-1E-0nB" firstAttribute="top" secondItem="qr0-S0-2HZ" secondAttribute="bottom" id="eaf-3h-r1a"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qnw-1E-0nB" secondAttribute="trailing" id="knh-vl-N35"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="jK5-sc-i8h" secondAttribute="leading" id="l3p-89-4Go"/>
+                            <constraint firstItem="xMB-yr-D0h" firstAttribute="top" secondItem="jK5-sc-i8h" secondAttribute="bottom" constant="20" id="mLd-e2-nZi"/>
+                            <constraint firstItem="jK5-sc-i8h" firstAttribute="top" secondItem="qnw-1E-0nB" secondAttribute="bottom" constant="14" id="n1d-vQ-DXw"/>
+                            <constraint firstItem="qnw-1E-0nB" firstAttribute="top" secondItem="qr0-S0-2HZ" secondAttribute="bottom" id="ogg-mT-aMG"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="jK5-sc-i8h" secondAttribute="leading" id="qYH-kW-LAe"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="qnw-1E-0nB" secondAttribute="leading" id="rit-8H-mGN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jK5-sc-i8h" secondAttribute="trailing" id="som-dd-tET"/>
+                            <constraint firstItem="jK5-sc-i8h" firstAttribute="top" secondItem="qr0-S0-2HZ" secondAttribute="bottom" constant="526" id="sxH-eg-F5A"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jK5-sc-i8h" secondAttribute="trailing" id="xsn-iW-ZYS"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="eaf-3h-r1a"/>
+                                <exclude reference="Die-UX-w0x"/>
+                                <exclude reference="XfV-uO-fVe"/>
+                                <exclude reference="Oxi-jt-rdm"/>
+                                <exclude reference="XdC-xc-zPO"/>
+                                <exclude reference="GKx-O5-OqM"/>
+                                <exclude reference="n1d-vQ-DXw"/>
+                                <exclude reference="sxH-eg-F5A"/>
+                                <exclude reference="qYH-kW-LAe"/>
+                                <exclude reference="som-dd-tET"/>
+                                <exclude reference="eEl-lG-yKl"/>
+                                <exclude reference="3XF-Ua-GaW"/>
+                                <exclude reference="52i-hj-aQc"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="appEntryImage" destination="qnw-1E-0nB" id="kap-Ui-EVl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lTL-gi-PCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-52" y="147"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -38,7 +116,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RoN-1k-i8K">
-                                                    <rect key="frame" x="15" y="25" width="40.5" height="13.5"/>
+                                                    <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -46,9 +124,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="xYe-rn-qG9" kind="show" identifier="moviedetail" id="8rL-Ig-Vx0"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -84,6 +159,7 @@
                     <navigationItem key="navigationItem" id="sVP-Do-Si5"/>
                     <connections>
                         <outlet property="searchResultsTableView" destination="t90-Ud-rOT" id="moQ-sD-y4e"/>
+                        <segue destination="xYe-rn-qG9" kind="presentation" identifier="moviedetail" id="x2k-45-aRy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -156,4 +232,8 @@
             <point key="canvasLocation" x="1715" y="-99"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LoginImage" width="512" height="512"/>
+        <image name="btn_img.png" width="486" height="64"/>
+    </resources>
 </document>
